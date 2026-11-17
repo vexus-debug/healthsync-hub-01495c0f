@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "@/lib/router-compat";
 import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
@@ -128,6 +129,8 @@ const steps = [
 ];
 
 const Index = () => {
+  const [category, setCategory] = useState("All tests");
+  const visibleTests = category === "All tests" ? popularTests : popularTests.filter((t) => t.category === category);
   return (
     <Layout>
       <SEO
@@ -285,366 +288,243 @@ const Index = () => {
         </div>
       </section>
 
-      {/* 3. WHY CHOOSE US */}
-      <section className="py-20 md:py-28 border-y border-border bg-muted/30">
-        <div className="container">
-          <Reveal variant="up" className="max-w-3xl mb-14">
-            <span className="text-xs font-semibold text-primary uppercase tracking-widest">Why choose Green Medical Diagnostics</span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight mt-3 text-foreground">
-              Diagnostics built on clinical precision and patient confidentiality.
+      {/* 3. CLINICAL GOVERNANCE & STANDARDS */}
+      <section className="py-20 md:py-28 border-y border-border/60 bg-background">
+        <div className="container grid lg:grid-cols-12 gap-12 lg:gap-16">
+          <Reveal variant="up" className="lg:col-span-5 space-y-6">
+            <p className="font-mono text-xs tracking-[0.2em] text-primary">[ 01 ] CLINICAL GOVERNANCE</p>
+            <h2 className="font-display text-3xl md:text-5xl font-bold leading-[1.05] tracking-tight text-foreground text-balance">
+              Every result is a signed clinical document.
             </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mt-4">
-              A fully licensed medical laboratory operated by qualified scientists and consulting clinicians — with quality-controlled processes at every stage of testing.
+            <p className="font-mono text-xs tracking-wider text-muted-foreground border-l-2 border-primary pl-4">
+              MLSCN REG. NO. 4921 // ISO 15189 PRINCIPLES
             </p>
+            <p className="text-muted-foreground leading-relaxed max-w-md">
+              All investigations are performed under the oversight of consultant pathologists. No report leaves the laboratory without documented quality control and clinical review.
+            </p>
+            <div className="flex flex-wrap gap-3 pt-2">
+              <Button asChild size="lg" className="rounded-none"><Link to="/about">About the Lab</Link></Button>
+              <Button asChild variant="outline" size="lg" className="rounded-none"><Link to="/services">Our Standards</Link></Button>
+            </div>
           </Reveal>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-2xl overflow-hidden border border-border">
+          <ol className="lg:col-span-7 border-t border-border">
             {[
-              { icon: BadgeCheck, title: "Licensed laboratory", desc: "Operating under MLSCN regulatory standards with documented quality protocols." },
-              { icon: ShieldCheck, title: "Strict confidentiality", desc: "Chain-of-custody handling and secure, patient-only result delivery." },
-              { icon: Award, title: "Qualified clinicians", desc: "Reports reviewed and signed off by experienced consultants before release." },
-              { icon: Sparkles, title: "Modern equipment", desc: "Calibrated analysers and validated methods aligned with ISO 15189 principles." },
-            ].map((t, i) => (
-              <Reveal key={t.title} variant="up" delay={i * 90} className="bg-background p-7">
-                <div className="h-11 w-11 rounded-lg bg-primary/10 text-primary grid place-items-center mb-5">
-                  <t.icon className="h-5 w-5" />
+              { t: "Regulatory Licensure", d: "Operating under Medical Laboratory Science Council of Nigeria standards with audited, documented quality protocols." },
+              { t: "Chain-of-Custody Privacy", d: "Specimens barcoded at collection; results released only to the patient or the requesting clinician." },
+              { t: "Consultant Verification", d: "Every report is reviewed and signed off by a qualified consultant before release." },
+              { t: "Calibrated Instrumentation", d: "Daily internal QC runs and validated methods on calibrated automated analysers." },
+            ].map((r, i) => (
+              <li key={r.t} className="grid grid-cols-[3.5rem_1fr] md:grid-cols-[4.5rem_14rem_1fr] gap-x-4 gap-y-1 py-6 border-b border-border">
+                <span className="font-mono text-sm text-primary">0{i + 1} //</span>
+                <h3 className="font-display font-semibold text-foreground">{r.t}</h3>
+                <p className="col-start-2 md:col-start-3 text-sm text-muted-foreground leading-relaxed">{r.d}</p>
+              </li>
+            ))}
+            <li className="grid grid-cols-2 md:grid-cols-4 pt-8 gap-6">
+              {[
+                { v: "15+", l: "Years of practice" },
+                { v: "200+", l: "Catalogued assays" },
+                { v: "24h", l: "Standard turnaround" },
+                { v: "98%", l: "Patient satisfaction" },
+              ].map((s) => (
+                <div key={s.l}>
+                  <p className="font-display text-3xl font-bold text-foreground tabular-nums">{s.v}</p>
+                  <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground mt-1">{s.l}</p>
                 </div>
-                <h3 className="font-display font-semibold text-base text-foreground">{t.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{t.desc}</p>
-              </Reveal>
-            ))}
-          </div>
-
-          <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-6 border-t border-border pt-10">
-            {[
-              { v: "15+", l: "Years of clinical practice" },
-              { v: "200+", l: "Tests in our catalogue" },
-              { v: "24h", l: "Standard turnaround" },
-              { v: "98%", l: "Patient satisfaction" },
-            ].map((s) => (
-              <div key={s.l}>
-                <p className="font-display text-3xl font-bold text-primary">{s.v}</p>
-                <p className="text-sm text-muted-foreground mt-1">{s.l}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex flex-wrap gap-3 pt-10">
-            <Button asChild size="lg"><Link to="/about">About the Lab</Link></Button>
-            <Button asChild variant="outline" size="lg"><Link to="/services">Our Standards</Link></Button>
-          </div>
+              ))}
+            </li>
+          </ol>
         </div>
       </section>
 
-      {/* 4. QUICK TEST SEARCH — full width */}
-      <section className="relative bg-primary text-primary-foreground py-20 md:py-24">
-        <div className="container">
-          <div className="grid lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-7 space-y-5">
-              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-primary-foreground/80">
-                <Search className="h-4 w-4" /> Find a test
-              </span>
-              <h2 className="font-display text-3xl md:text-5xl font-bold leading-tight tracking-tight">
-                What test are you looking for today?
-              </h2>
-              <p className="text-primary-foreground/80 text-base md:text-lg max-w-xl">
-                Search 200+ accredited lab tests — from full blood counts to fertility and hormonal assays.
-              </p>
-            </div>
-            <div className="lg:col-span-5 space-y-4">
-              <form
-                onSubmit={(e) => { e.preventDefault(); window.location.href = "/services"; }}
-                className="flex items-center gap-2 bg-background rounded-xl p-2 shadow-elegant"
-              >
-                <Search className="h-5 w-5 text-muted-foreground ml-3 shrink-0" />
-                <Input
-                  type="search"
-                  placeholder="e.g. Full Blood Count, HIV, Thyroid…"
-                  className="flex-1 border-0 focus-visible:ring-0 text-foreground placeholder:text-muted-foreground bg-transparent"
-                />
-                <Button type="submit" size="lg" className="shrink-0 bg-primary text-primary-foreground hover:bg-primary/90">Search</Button>
-              </form>
-              <div className="flex flex-wrap gap-2 text-xs">
-                <span className="text-primary-foreground/70 self-center mr-1">Popular:</span>
-                {["Malaria", "HIV Test", "Thyroid", "Pregnancy", "Diabetes"].map((t) => (
-                  <Link key={t} to="/services" className="px-3 py-1.5 rounded-md bg-white/10 hover:bg-white/20 transition-smooth border border-white/20 font-medium">{t}</Link>
-                ))}
-              </div>
+      {/* 4. ARCHITECTURAL OMNIBAR */}
+      <section className="border-b border-border bg-muted/40">
+        <div className="container grid lg:grid-cols-12">
+          <div className="lg:col-span-4 py-8 lg:py-12 lg:pr-10 lg:border-r border-border font-mono text-xs tracking-wider space-y-3">
+            <p className="text-primary">[ 02 ] INDEX / 200+ ACCREDITED ASSAYS</p>
+            <p className="text-muted-foreground">SLA: SAME-DAY TO 48H</p>
+            <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-foreground pt-2 font-sans">Search the test directory.</h2>
+          </div>
+          <div className="lg:col-span-8 py-8 lg:py-12 lg:pl-10 space-y-5">
+            <form
+              onSubmit={(e) => { e.preventDefault(); window.location.href = "/services"; }}
+              className="flex border border-foreground bg-background"
+            >
+              <label htmlFor="omni" className="sr-only">Search tests</label>
+              <input
+                id="omni"
+                type="search"
+                placeholder="Full Blood Count, HIV, Thyroid…"
+                className="flex-1 min-w-0 bg-transparent px-4 py-4 text-base text-foreground placeholder:text-muted-foreground outline-none"
+              />
+              <button type="submit" className="shrink-0 bg-foreground text-background px-5 md:px-8 font-semibold text-sm transition-opacity hover:opacity-90">
+                Search Directory
+              </button>
+            </form>
+            <div className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs">
+              {["Full Blood Count", "Lipid Profile", "Thyroid Panel", "Hepatitis", "Fertility"].map((t) => (
+                <Link key={t} to="/services" className="text-muted-foreground hover:text-primary underline-offset-4 hover:underline">[{t}]</Link>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* 5. POPULAR TESTS — clinical catalogue */}
-      <section className="py-20 md:py-28 bg-background border-y border-border/60">
+      {/* 5. DIAGNOSTIC REGISTRY */}
+      <section className="py-20 md:py-28 bg-background">
         <div className="container">
-          {/* Header */}
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-10">
-            <div className="max-w-2xl">
-              <div className="flex items-center gap-3 text-xs uppercase tracking-[0.22em] text-primary font-semibold">
-                <span className="h-px w-8 bg-primary" />
-                Test Directory
-              </div>
-              <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight tracking-tight mt-4">
-                Frequently requested clinical investigations.
-              </h2>
-              <p className="mt-3 text-muted-foreground leading-relaxed">
-                A selection from our catalogue of 200+ accredited tests. Each entry shows specimen requirements, fasting status and verified turnaround times.
-              </p>
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
+            <div className="max-w-2xl space-y-4">
+              <p className="font-mono text-xs tracking-[0.2em] text-primary">[ 03 ] DIAGNOSTIC REGISTRY</p>
+              <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight tracking-tight">Frequently requested investigations.</h2>
             </div>
-            <div className="flex items-center gap-3 shrink-0">
-              <span className="font-mono text-xs text-muted-foreground">{popularTests.length} of 200+</span>
-              <Button asChild variant="outline" size="lg">
-                <Link to="/services">Full catalogue <ArrowRight className="h-4 w-4" /></Link>
-              </Button>
-            </div>
+            <Link to="/services" className="font-mono text-xs tracking-wider text-foreground hover:text-primary underline underline-offset-4">
+              FULL CATALOGUE ({popularTests.length} OF 200+) →
+            </Link>
           </div>
 
-          {/* Category filter chips */}
-          <div className="flex flex-wrap gap-2 mb-8 pb-6 border-b border-border/60">
-            {testCategories.map((cat, i) => (
+          <div className="flex flex-wrap gap-x-6 gap-y-2 border-b border-border mb-0">
+            {testCategories.map((cat) => (
               <button
                 key={cat}
                 type="button"
-                className={`px-3.5 py-1.5 rounded-md text-xs font-semibold transition-smooth border ${
-                  i === 0
-                    ? "bg-primary text-primary-foreground border-primary"
-                    : "bg-background text-muted-foreground border-border hover:border-primary/40 hover:text-primary"
+                onClick={() => setCategory(cat)}
+                className={`font-mono text-xs uppercase tracking-wider py-3 -mb-px border-b-2 transition-colors ${
+                  category === cat ? "border-primary text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"
                 }`}
               >
-                {cat}
+                {cat === "All tests" ? "All (200+)" : cat}
               </button>
             ))}
           </div>
 
-          {/* Test cards — clinical data layout */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border rounded-2xl overflow-hidden border border-border">
-            {popularTests.map((t) => (
-              <article
-                key={t.code}
-                className="group bg-background p-6 hover:bg-secondary/40 transition-smooth flex flex-col"
-              >
-                {/* Top row: code + category */}
-                <div className="flex items-center justify-between mb-4">
-                  <span className="font-mono text-[11px] tracking-wider text-muted-foreground">
-                    {t.code}
-                  </span>
-                  <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded bg-primary-soft text-primary">
-                    {t.category}
-                  </span>
-                </div>
-
-                {/* Title */}
-                <div className="flex items-start gap-3 mb-5">
-                  <div className="h-10 w-10 rounded-lg bg-secondary text-primary grid place-items-center shrink-0 border border-border">
-                    <t.icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="font-display font-bold text-base md:text-lg leading-snug pt-0.5">
-                    {t.title}
-                  </h3>
-                </div>
-
-                {/* Spec table */}
-                <dl className="grid grid-cols-2 gap-y-2.5 gap-x-4 text-xs mb-5 pb-5 border-b border-border/60">
-                  <div>
-                    <dt className="text-muted-foreground uppercase tracking-wider text-[10px] font-semibold">Specimen</dt>
-                    <dd className="font-medium text-foreground mt-0.5">{t.sample}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-muted-foreground uppercase tracking-wider text-[10px] font-semibold">Fasting</dt>
-                    <dd className="font-medium text-foreground mt-0.5">{t.fasting ? "Required (8 hrs)" : "Not required"}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-muted-foreground uppercase tracking-wider text-[10px] font-semibold">Parameters</dt>
-                    <dd className="font-medium text-foreground mt-0.5 font-mono">{t.parameters}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-muted-foreground uppercase tracking-wider text-[10px] font-semibold">Turnaround</dt>
-                    <dd className="font-medium text-foreground mt-0.5 inline-flex items-center gap-1">
-                      <Clock className="h-3 w-3" /> {t.tat}
-                    </dd>
-                  </div>
-                </dl>
-
-                {/* Footer action */}
-                <div className="flex items-center justify-between mt-auto">
-                  <Link
-                    to="/services"
-                    className="text-xs font-semibold text-muted-foreground hover:text-primary transition-smooth"
-                  >
-                    View details
-                  </Link>
-                  <Link
-                    to="/book"
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:gap-2.5 transition-smooth"
-                  >
-                    Request test <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
-                </div>
-              </article>
-            ))}
+          <div className="hidden lg:grid grid-cols-[6rem_1.6fr_1fr_1fr_0.7fr_0.6fr_9rem] gap-4 py-3 border-b border-border font-mono text-[11px] tracking-wider text-muted-foreground">
+            <span>CODE</span><span>INVESTIGATION</span><span>SPECIMEN TYPE</span><span>FASTING PROTOCOL</span><span>TURNAROUND</span><span>PARAMETERS</span><span className="text-right">ACTION</span>
           </div>
-
-          {/* Footer note */}
-          <div className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-muted-foreground">
-            <p className="inline-flex items-center gap-2">
-              <ShieldCheck className="h-3.5 w-3.5 text-primary" />
-              All tests reviewed and signed off by consultant pathologists prior to release.
-            </p>
-            <a
-              href={buildWhatsAppLink("Hello Green Medical, I'd like to enquire about a test not listed.")}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1.5 font-semibold text-primary hover:underline"
-            >
-              <MessageCircle className="h-3.5 w-3.5" /> Can't find your test? Ask a clinician
+          <ul>
+            {visibleTests.map((t) => (
+              <li key={t.code} className="grid grid-cols-2 lg:grid-cols-[6rem_1.6fr_1fr_1fr_0.7fr_0.6fr_9rem] gap-x-4 gap-y-2 py-5 border-b border-border items-baseline text-sm">
+                <span className="font-mono text-xs text-primary">{t.code}</span>
+                <span className="col-span-2 lg:col-span-1 -order-1 lg:order-none font-display font-semibold text-foreground text-base">{t.title}</span>
+                <span className="text-muted-foreground"><span className="lg:hidden font-mono text-[10px] block">SPECIMEN</span>{t.sample}</span>
+                <span className="text-muted-foreground"><span className="lg:hidden font-mono text-[10px] block">FASTING</span>{t.fasting ? "8–12h Fasting Required" : "No Fasting Required"}</span>
+                <span className="text-foreground tabular-nums"><span className="lg:hidden font-mono text-[10px] block text-muted-foreground">TAT</span>{t.tat}</span>
+                <span className="font-mono tabular-nums text-foreground"><span className="lg:hidden text-[10px] block text-muted-foreground">PARAMS</span>{t.parameters}</span>
+                <Link to="/book" className="col-span-2 lg:col-span-1 lg:text-right font-semibold text-primary hover:underline underline-offset-4">Book Investigation →</Link>
+              </li>
+            ))}
+            {visibleTests.length === 0 && (
+              <li className="py-8 border-b border-border text-sm text-muted-foreground">No listed investigations in this category — see the full catalogue.</li>
+            )}
+          </ul>
+          <div className="mt-6 flex flex-col sm:flex-row sm:justify-between gap-3 font-mono text-xs text-muted-foreground">
+            <p>ALL REPORTS SIGNED OFF BY CONSULTANT PATHOLOGISTS PRIOR TO RELEASE.</p>
+            <a href={buildWhatsAppLink("Hello Green Medical, I'd like to enquire about a test not listed.")} target="_blank" rel="noreferrer" className="text-primary hover:underline underline-offset-4">
+              TEST NOT LISTED? ASK A CLINICIAN →
             </a>
           </div>
         </div>
       </section>
 
-      {/* 6. HOME SAMPLE COLLECTION — clinical, image-free */}
-      <section className="py-20 md:py-28 bg-primary text-primary-foreground">
-        <div className="container">
-          <div className="grid lg:grid-cols-12 gap-10 lg:gap-16">
-            {/* Left intro */}
-            <Reveal variant="right" className="lg:col-span-5 space-y-6">
-              <div className="flex items-center gap-3 text-xs uppercase tracking-[0.22em] text-primary-foreground/80 font-semibold">
-                <span className="h-px w-8 bg-primary-foreground/60" />
-                Home Sample Collection
-              </div>
-              <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight tracking-tight">
-                Certified phlebotomy at your home or office.
+      {/* 6. LOGISTICS DISPATCH BOARD */}
+      <section className="border-y border-border">
+        <div className="grid lg:grid-cols-12">
+          <div className="lg:col-span-5 bg-foreground text-background p-8 md:p-14 flex flex-col justify-between gap-10">
+            <div className="space-y-6">
+              <p className="font-mono text-xs tracking-[0.2em] opacity-70">[ 04 ] HOME SAMPLE COLLECTION</p>
+              <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight tracking-tight text-balance">
+                Mobile phlebotomy dispatch across Port Harcourt residential and corporate addresses.
               </h2>
-              <p className="text-primary-foreground/80 leading-relaxed">
-                A trained phlebotomist visits at your scheduled time with sterile, single-use collection kits. Samples are sealed, labelled and transported under chain-of-custody to our laboratory for analysis.
-              </p>
-              <div className="flex flex-wrap gap-3 pt-2">
-                <Button asChild size="lg" className="bg-background text-primary hover:bg-background/90 font-semibold">
-                  <Link to="/book"><Home className="h-4 w-4" /> Request Pickup</Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="bg-transparent border-white/40 text-primary-foreground hover:bg-white/10 hover:text-primary-foreground">
-                  <a href={buildWhatsAppLink("Hello Green Medical, I'd like to schedule a home sample pickup.")} target="_blank" rel="noreferrer">
-                    <MessageCircle className="h-4 w-4" /> WhatsApp clinician
-                  </a>
-                </Button>
-              </div>
-            </Reveal>
-
-            {/* Right: service spec card */}
-            <Reveal variant="left" delay={120} className="lg:col-span-7">
-              <div className="rounded-2xl bg-white/5 backdrop-blur border border-white/15 overflow-hidden">
-                <div className="grid sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
-                  {[
-                    { icon: Truck, t: "Response time", d: "Within 60 minutes across Port Harcourt" },
-                    { icon: ShieldCheck, t: "Sterile equipment", d: "Single-use, factory-sealed kits per visit" },
-                    { icon: Clock, t: "Service hours", d: "Monday – Sunday, including public holidays" },
-                    { icon: BadgeCheck, t: "Verified staff", d: "ID-checked, MLSCN-certified phlebotomists" },
-                  ].map((i) => (
-                    <div key={i.t} className="p-6 flex items-start gap-4">
-                      <div className="h-10 w-10 rounded-lg bg-white/10 text-primary-foreground grid place-items-center shrink-0">
-                        <i.icon className="h-5 w-5" />
-                      </div>
-                      <div>
-                        <p className="font-display font-semibold">{i.t}</p>
-                        <p className="text-sm text-primary-foreground/75 mt-1 leading-relaxed">{i.d}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="border-t border-white/10 bg-white/5 px-6 py-4 flex flex-wrap items-center justify-between gap-3 text-xs text-primary-foreground/75">
-                  <span className="inline-flex items-center gap-2">
-                    <ShieldCheck className="h-3.5 w-3.5" />
-                    Chain-of-custody documented from collection to result release.
-                  </span>
-                  <span className="font-mono">Service area: Port Harcourt & environs</span>
-                </div>
-              </div>
-            </Reveal>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link to="/book" className="bg-background text-foreground px-6 py-3 font-semibold text-sm hover:opacity-90 transition-opacity">Schedule Phlebotomist</Link>
+              <a href={buildWhatsAppLink("Hello Green Medical, I'd like to schedule a home sample pickup.")} target="_blank" rel="noreferrer" className="border border-background/40 px-6 py-3 font-semibold text-sm hover:bg-background/10 transition-colors">WhatsApp Clinician</a>
+            </div>
           </div>
+          <ol className="lg:col-span-7 grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border bg-background">
+            {[
+              { t: "Sterile Specimen Extraction", d: "Single-use vacuum collection tubes and barcoded tracking labels applied at the bedside." },
+              { t: "Temperature-Controlled Cold Chain", d: "Calibrated insulated transport containers maintaining 2°C–8°C integrity during transit." },
+              { t: "Laboratory Intake & Logging", d: "Immediate verification, centrifugation, and automated entry into our analytical queue." },
+            ].map((s, i) => (
+              <li key={s.t} className="p-8 md:p-10 flex flex-col gap-4">
+                <span className="font-mono text-xs text-primary">STAGE 0{i + 1}</span>
+                <h3 className="font-display font-semibold uppercase tracking-wide text-sm text-foreground">{s.t}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{s.d}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      {/* 7. DOWNLOAD RESULTS CTA */}
-      <section className="py-20 md:py-24">
+      {/* 7. SECURE RESULTS TERMINAL */}
+      <section className="py-16 md:py-20">
         <div className="container">
-          <div className="relative overflow-hidden rounded-2xl bg-card border border-border p-8 md:p-12 shadow-soft">
-            <div className="grid md:grid-cols-[auto_1fr_auto] gap-6 md:gap-10 items-center">
-              <div className="h-14 w-14 rounded-xl bg-primary/10 text-primary grid place-items-center mx-auto md:mx-0">
-                <FileText className="h-7 w-7" />
-              </div>
-              <div className="text-center md:text-left">
-                <span className="text-xs font-semibold text-primary uppercase tracking-widest">Patient portal</span>
-                <h2 className="font-display text-2xl md:text-3xl font-semibold mt-2 text-foreground">Access your test results</h2>
-                <p className="mt-2 text-muted-foreground max-w-xl">Sign in with your reference ID and date of birth to securely view and download your encrypted laboratory report.</p>
-              </div>
-              <div className="flex justify-center md:justify-end">
-                <Button asChild size="lg">
-                  <Link to="/results"><Download className="h-4 w-4" /> Access Results</Link>
-                </Button>
-              </div>
+          <div className="bg-primary text-primary-foreground grid lg:grid-cols-12 gap-8 p-8 md:p-12 items-center">
+            <div className="lg:col-span-6 space-y-3">
+              <p className="font-mono text-xs tracking-[0.2em] opacity-80">[ 05 ] PATIENT PORTAL // 256-BIT SSL ENCRYPTION</p>
+              <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight">Retrieve your verified report.</h2>
+              <p className="text-sm opacity-80">Enter the reference code printed on your lab receipt. <span className="font-mono">FORMAT: GMD-XXXXX</span></p>
             </div>
+            <form
+              onSubmit={(e) => { e.preventDefault(); window.location.href = "/results"; }}
+              className="lg:col-span-6 flex flex-col sm:flex-row border border-primary-foreground/40"
+            >
+              <label htmlFor="ref" className="sr-only">Reference ID</label>
+              <input id="ref" placeholder="GMD-00000" className="flex-1 min-w-0 bg-transparent px-4 py-4 font-mono text-primary-foreground placeholder:text-primary-foreground/50 outline-none" />
+              <button type="submit" className="bg-primary-foreground text-primary px-6 py-4 font-semibold text-sm hover:opacity-90 transition-opacity">Access Encrypted Report</button>
+            </form>
           </div>
         </div>
       </section>
 
-      {/* 8. LOCATIONS / CONTACT PREVIEW */}
-      <section className="py-20 md:py-28 bg-gradient-soft relative overflow-hidden">
-        <div className="absolute -bottom-40 right-1/4 h-96 w-96 rounded-full bg-primary/15 blur-3xl" />
-        <div className="container relative">
-          <div className="max-w-2xl mb-14">
-            <span className="text-xs font-semibold text-primary uppercase tracking-widest">Visit or call</span>
-            <h2 className="font-display text-3xl md:text-5xl font-bold mt-3">Find us — or let us find you.</h2>
-            <p className="mt-4 text-muted-foreground text-lg">Our doors are open across Port Harcourt, with a friendly team ready to help.</p>
-          </div>
-          <div className="grid lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 relative rounded-[2.5rem] overflow-hidden border border-border shadow-soft min-h-[360px] bg-background">
-              <iframe
-                title="Green Medical Diagnostics location"
-                src="https://www.google.com/maps?q=Elioprawo,+Port+Harcourt&output=embed"
-                className="absolute inset-0 w-full h-full"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-              <div className="absolute left-6 bottom-6 max-w-xs bg-background/95 backdrop-blur rounded-2xl p-5 shadow-elegant">
-                <div className="flex items-start gap-3">
-                  <div className="h-10 w-10 rounded-xl bg-primary-soft text-primary grid place-items-center shrink-0"><MapPin className="h-5 w-5" /></div>
-                  <div>
-                    <p className="font-display font-bold">Main Branch</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{SITE.address}</p>
-                  </div>
-                </div>
-              </div>
+      {/* 8. STATION INDEX & MAP */}
+      <section className="py-20 md:py-28 border-t border-border bg-background">
+        <div className="container grid lg:grid-cols-12 gap-12">
+          <div className="lg:col-span-5 space-y-8">
+            <div className="space-y-4">
+              <p className="font-mono text-xs tracking-[0.2em] text-primary">[ 06 ] STATION: ELIOPARANWO MAIN LABORATORY</p>
+              <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">Facility schedule.</h2>
             </div>
-            <div className="space-y-5">
-              <div className="rounded-3xl p-6 bg-background border border-border hover:shadow-elegant transition-smooth">
-                <Clock className="h-6 w-6 text-primary mb-3" />
-                <p className="font-display font-bold mb-2">Opening Hours</p>
-                <ul className="space-y-1.5 text-sm">
-                  {SITE.hours.map((h) => (
-                    <li key={h.day} className="flex justify-between gap-3 text-muted-foreground">
-                      <span className="font-medium text-foreground/80">{h.day}</span>
-                      <span>{h.time}</span>
-                    </li>
-                  ))}
-                </ul>
+            <dl className="border-t border-border text-sm">
+              {[
+                ["Walk-in Specimen Intake", "Mon – Sat, 07:30 – 18:00"],
+                ["Home Sample Dispatches", "Mon – Sat, 07:00 – 16:00"],
+                ["Consultant Pathology Reviews", "Mon – Fri, 09:00 – 17:00"],
+                ["Emergency / STAT Turnaround", "On-call 24/7"],
+              ].map(([k, v]) => (
+                <div key={k} className="flex justify-between gap-4 py-4 border-b border-border">
+                  <dt className="text-foreground font-medium">{k}</dt>
+                  <dd className="font-mono text-xs text-muted-foreground text-right tabular-nums">{v}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className="space-y-2 text-sm">
+              <p className="font-mono text-[11px] tracking-wider text-muted-foreground">ADDRESS</p>
+              <p className="text-foreground leading-relaxed">{SITE.address}</p>
+            </div>
+            <div className="space-y-2 text-sm">
+              <p className="font-mono text-[11px] tracking-wider text-muted-foreground">TELEPHONE</p>
+              {SITE.phones.map((p) => (
+                <a key={p} href={`tel:${p.replace(/\s/g, "")}`} className="block font-mono text-foreground hover:text-primary">{p}</a>
+              ))}
+              <a href={buildWhatsAppLink("Hello Green Medical, I have a question.")} target="_blank" rel="noreferrer" className="inline-block pt-2 font-semibold text-primary hover:underline underline-offset-4">Chat on WhatsApp →</a>
+            </div>
+          </div>
+          <div className="lg:col-span-7">
+            <div className="relative border border-foreground p-2">
+              <span className="absolute -top-5 left-0 font-mono text-[10px] text-muted-foreground">4.8156° N</span>
+              <span className="absolute -top-5 right-0 font-mono text-[10px] text-muted-foreground">7.0498° E</span>
+              <div className="relative min-h-[420px] h-full">
+                <iframe
+                  title="Green Medical Diagnostics location"
+                  src="https://www.google.com/maps?q=Elioprawo,+Port+Harcourt&output=embed"
+                  className="absolute inset-0 w-full h-full grayscale"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
-              <div className="rounded-3xl p-6 bg-gradient-primary text-primary-foreground hover:shadow-elegant transition-smooth">
-                <Phone className="h-6 w-6 mb-3" />
-                <p className="font-display font-bold mb-2">Call us anytime</p>
-                <ul className="space-y-1.5 text-sm">
-                  {SITE.phones.map((p) => (
-                    <li key={p}>
-                      <a href={`tel:${p.replace(/\s/g, "")}`} className="hover:underline">{p}</a>
-                    </li>
-                  ))}
-                </ul>
-                <Button asChild variant="accent" className="mt-4 w-full">
-                  <a href={buildWhatsAppLink("Hello Green Medical, I have a question.")} target="_blank" rel="noreferrer">
-                    <MessageCircle className="h-4 w-4" /> Chat on WhatsApp
-                  </a>
-                </Button>
-              </div>
+              <span className="absolute -bottom-5 left-0 font-mono text-[10px] text-muted-foreground">STN-01 / PORT HARCOURT</span>
             </div>
           </div>
         </div>
