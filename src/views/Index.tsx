@@ -292,27 +292,27 @@ const Index = () => {
       <section className="py-20 md:py-28 border-y border-border/60 bg-background">
         <div className="container grid lg:grid-cols-12 gap-12 lg:gap-16">
           <Reveal variant="up" className="lg:col-span-5 space-y-6">
-            <p className="font-mono text-xs tracking-[0.2em] text-primary">[ 01 ] CLINICAL GOVERNANCE</p>
+            <p className="font-mono text-xs tracking-[0.2em] text-primary">[ 01 ] WHY PATIENTS TRUST US</p>
             <h2 className="font-display text-3xl md:text-5xl font-bold leading-[1.05] tracking-tight text-foreground text-balance">
-              Every result is a signed clinical document.
+              Results you and your doctor can rely on.
             </h2>
             <p className="font-mono text-xs tracking-wider text-muted-foreground border-l-2 border-primary pl-4">
-              MLSCN REG. NO. 4921 // ISO 15189 PRINCIPLES
+              LICENSED BY THE MEDICAL LABORATORY SCIENCE COUNCIL OF NIGERIA
             </p>
             <p className="text-muted-foreground leading-relaxed max-w-md">
-              All investigations are performed under the oversight of consultant pathologists. No report leaves the laboratory without documented quality control and clinical review.
+              Every test is checked by experienced lab doctors. Nothing is sent to you until it has been double-checked for accuracy.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Button asChild size="lg" className="rounded-none"><Link to="/about">About the Lab</Link></Button>
-              <Button asChild variant="outline" size="lg" className="rounded-none"><Link to="/services">Our Standards</Link></Button>
+              <Button asChild variant="outline" size="lg" className="rounded-none"><Link to="/services">Our Tests</Link></Button>
             </div>
           </Reveal>
           <ol className="lg:col-span-7 border-t border-border">
             {[
-              { t: "Regulatory Licensure", d: "Operating under Medical Laboratory Science Council of Nigeria standards with audited, documented quality protocols." },
-              { t: "Chain-of-Custody Privacy", d: "Specimens barcoded at collection; results released only to the patient or the requesting clinician." },
-              { t: "Consultant Verification", d: "Every report is reviewed and signed off by a qualified consultant before release." },
-              { t: "Calibrated Instrumentation", d: "Daily internal QC runs and validated methods on calibrated automated analysers." },
+              { t: "Fully licensed", d: "We follow national lab standards and are regularly inspected." },
+              { t: "Your privacy comes first", d: "Your sample is labelled the moment it is taken, and only you or your doctor can see your results." },
+              { t: "Checked by a doctor", d: "A qualified lab doctor reviews and approves every result before you get it." },
+              { t: "Modern, well-kept equipment", d: "Our machines are checked every day so your results are accurate." },
             ].map((r, i) => (
               <li key={r.t} className="grid grid-cols-[3.5rem_1fr] md:grid-cols-[4.5rem_14rem_1fr] gap-x-4 gap-y-1 py-6 border-b border-border">
                 <span className="font-mono text-sm text-primary">0{i + 1} //</span>
@@ -323,8 +323,8 @@ const Index = () => {
             <li className="grid grid-cols-2 md:grid-cols-4 pt-8 gap-6">
               {[
                 { v: "15+", l: "Years of practice" },
-                { v: "200+", l: "Catalogued assays" },
-                { v: "24h", l: "Standard turnaround" },
+                { v: "200+", l: "Tests available" },
+                { v: "24h", l: "Typical result time" },
                 { v: "98%", l: "Patient satisfaction" },
               ].map((s) => (
                 <div key={s.l}>
@@ -338,17 +338,17 @@ const Index = () => {
       </section>
 
       {/* 4. ARCHITECTURAL OMNIBAR */}
-      <section className="border-b border-border bg-muted/40">
+      <section className="bg-primary text-primary-foreground">
         <div className="container grid lg:grid-cols-12">
-          <div className="lg:col-span-4 py-8 lg:py-12 lg:pr-10 lg:border-r border-border font-mono text-xs tracking-wider space-y-3">
-            <p className="text-primary">[ 02 ] INDEX / 200+ ACCREDITED ASSAYS</p>
-            <p className="text-muted-foreground">SLA: SAME-DAY TO 48H</p>
-            <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-foreground pt-2 font-sans">Search the test directory.</h2>
+          <div className="lg:col-span-4 py-8 lg:py-12 lg:pr-10 lg:border-r border-primary-foreground/20 font-mono text-xs tracking-wider space-y-3">
+            <p className="opacity-80">[ 02 ] FIND A TEST · 200+ AVAILABLE</p>
+            <p className="opacity-70">MOST RESULTS READY SAME DAY</p>
+            <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight pt-2 font-sans">What test do you need?</h2>
           </div>
           <div className="lg:col-span-8 py-8 lg:py-12 lg:pl-10 space-y-5">
             <form
               onSubmit={(e) => { e.preventDefault(); window.location.href = "/services"; }}
-              className="flex border border-foreground bg-background"
+              className="flex border border-primary-foreground bg-background"
             >
               <label htmlFor="omni" className="sr-only">Search tests</label>
               <input
@@ -358,12 +358,12 @@ const Index = () => {
                 className="flex-1 min-w-0 bg-transparent px-4 py-4 text-base text-foreground placeholder:text-muted-foreground outline-none"
               />
               <button type="submit" className="shrink-0 bg-foreground text-background px-5 md:px-8 font-semibold text-sm transition-opacity hover:opacity-90">
-                Search Directory
+                Search
               </button>
             </form>
             <div className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs">
               {["Full Blood Count", "Lipid Profile", "Thyroid Panel", "Hepatitis", "Fertility"].map((t) => (
-                <Link key={t} to="/services" className="text-muted-foreground hover:text-primary underline-offset-4 hover:underline">[{t}]</Link>
+                <Link key={t} to="/services" className="text-primary-foreground/80 hover:text-primary-foreground underline-offset-4 hover:underline">[{t}]</Link>
               ))}
             </div>
           </div>
@@ -375,11 +375,11 @@ const Index = () => {
         <div className="container">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
             <div className="max-w-2xl space-y-4">
-              <p className="font-mono text-xs tracking-[0.2em] text-primary">[ 03 ] DIAGNOSTIC REGISTRY</p>
-              <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight tracking-tight">Frequently requested investigations.</h2>
+              <p className="font-mono text-xs tracking-[0.2em] text-primary">[ 03 ] POPULAR TESTS</p>
+              <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight tracking-tight">Tests people book most often.</h2>
             </div>
             <Link to="/services" className="font-mono text-xs tracking-wider text-foreground hover:text-primary underline underline-offset-4">
-              FULL CATALOGUE ({popularTests.length} OF 200+) →
+              SEE ALL TESTS →
             </Link>
           </div>
 
@@ -399,28 +399,28 @@ const Index = () => {
           </div>
 
           <div className="hidden lg:grid grid-cols-[6rem_1.6fr_1fr_1fr_0.7fr_0.6fr_9rem] gap-4 py-3 border-b border-border font-mono text-[11px] tracking-wider text-muted-foreground">
-            <span>CODE</span><span>INVESTIGATION</span><span>SPECIMEN TYPE</span><span>FASTING PROTOCOL</span><span>TURNAROUND</span><span>PARAMETERS</span><span className="text-right">ACTION</span>
+            <span>CODE</span><span>TEST</span><span>SAMPLE</span><span>FASTING</span><span>RESULTS IN</span><span>CHECKS</span><span className="text-right">BOOK</span>
           </div>
           <ul>
             {visibleTests.map((t) => (
               <li key={t.code} className="grid grid-cols-2 lg:grid-cols-[6rem_1.6fr_1fr_1fr_0.7fr_0.6fr_9rem] gap-x-4 gap-y-2 py-5 border-b border-border items-baseline text-sm">
                 <span className="font-mono text-xs text-primary">{t.code}</span>
                 <span className="col-span-2 lg:col-span-1 -order-1 lg:order-none font-display font-semibold text-foreground text-base">{t.title}</span>
-                <span className="text-muted-foreground"><span className="lg:hidden font-mono text-[10px] block">SPECIMEN</span>{t.sample}</span>
-                <span className="text-muted-foreground"><span className="lg:hidden font-mono text-[10px] block">FASTING</span>{t.fasting ? "8–12h Fasting Required" : "No Fasting Required"}</span>
-                <span className="text-foreground tabular-nums"><span className="lg:hidden font-mono text-[10px] block text-muted-foreground">TAT</span>{t.tat}</span>
-                <span className="font-mono tabular-nums text-foreground"><span className="lg:hidden text-[10px] block text-muted-foreground">PARAMS</span>{t.parameters}</span>
-                <Link to="/book" className="col-span-2 lg:col-span-1 lg:text-right font-semibold text-primary hover:underline underline-offset-4">Book Investigation →</Link>
+                <span className="text-muted-foreground"><span className="lg:hidden font-mono text-[10px] block">SAMPLE</span>{t.sample}</span>
+                <span className="text-muted-foreground"><span className="lg:hidden font-mono text-[10px] block">FASTING</span>{t.fasting ? "Don't eat for 8–12 hours before" : "No need to fast"}</span>
+                <span className="text-foreground tabular-nums"><span className="lg:hidden font-mono text-[10px] block text-muted-foreground">RESULTS IN</span>{t.tat}</span>
+                <span className="font-mono tabular-nums text-foreground"><span className="lg:hidden text-[10px] block text-muted-foreground">CHECKS</span>{t.parameters}</span>
+                <Link to="/book" className="col-span-2 lg:col-span-1 lg:text-right font-semibold text-primary hover:underline underline-offset-4">Book this test →</Link>
               </li>
             ))}
             {visibleTests.length === 0 && (
-              <li className="py-8 border-b border-border text-sm text-muted-foreground">No listed investigations in this category — see the full catalogue.</li>
+              <li className="py-8 border-b border-border text-sm text-muted-foreground">No tests shown here yet — see all tests.</li>
             )}
           </ul>
           <div className="mt-6 flex flex-col sm:flex-row sm:justify-between gap-3 font-mono text-xs text-muted-foreground">
-            <p>ALL REPORTS SIGNED OFF BY CONSULTANT PATHOLOGISTS PRIOR TO RELEASE.</p>
+            <p>EVERY RESULT IS CHECKED BY A LAB DOCTOR BEFORE YOU GET IT.</p>
             <a href={buildWhatsAppLink("Hello Green Medical, I'd like to enquire about a test not listed.")} target="_blank" rel="noreferrer" className="text-primary hover:underline underline-offset-4">
-              TEST NOT LISTED? ASK A CLINICIAN →
+              CAN'T FIND YOUR TEST? ASK US →
             </a>
           </div>
         </div>
@@ -433,22 +433,22 @@ const Index = () => {
             <div className="space-y-6">
               <p className="font-mono text-xs tracking-[0.2em] opacity-70">[ 04 ] HOME SAMPLE COLLECTION</p>
               <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight tracking-tight text-balance">
-                Mobile phlebotomy dispatch across Port Harcourt residential and corporate addresses.
+                We come to your home or office anywhere in Port Harcourt to take your sample.
               </h2>
             </div>
             <div className="flex flex-wrap gap-3">
-              <Link to="/book" className="bg-background text-foreground px-6 py-3 font-semibold text-sm hover:opacity-90 transition-opacity">Schedule Phlebotomist</Link>
-              <a href={buildWhatsAppLink("Hello Green Medical, I'd like to schedule a home sample pickup.")} target="_blank" rel="noreferrer" className="border border-background/40 px-6 py-3 font-semibold text-sm hover:bg-background/10 transition-colors">WhatsApp Clinician</a>
+              <Link to="/book" className="bg-background text-foreground px-6 py-3 font-semibold text-sm hover:opacity-90 transition-opacity">Book a home visit</Link>
+              <a href={buildWhatsAppLink("Hello Green Medical, I'd like to schedule a home sample pickup.")} target="_blank" rel="noreferrer" className="border border-background/40 px-6 py-3 font-semibold text-sm hover:bg-background/10 transition-colors">Chat on WhatsApp</a>
             </div>
           </div>
           <ol className="lg:col-span-7 grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border bg-background">
             {[
-              { t: "Sterile Specimen Extraction", d: "Single-use vacuum collection tubes and barcoded tracking labels applied at the bedside." },
-              { t: "Temperature-Controlled Cold Chain", d: "Calibrated insulated transport containers maintaining 2°C–8°C integrity during transit." },
-              { t: "Laboratory Intake & Logging", d: "Immediate verification, centrifugation, and automated entry into our analytical queue." },
+              { t: "Safe, clean sample", d: "A trained nurse takes your sample using new, sealed equipment and labels it on the spot." },
+              { t: "Kept cool on the way", d: "Your sample travels in a cooled box so it stays in perfect condition." },
+              { t: "Tested right away", d: "As soon as it arrives, our lab checks it in and starts testing." },
             ].map((s, i) => (
               <li key={s.t} className="p-8 md:p-10 flex flex-col gap-4">
-                <span className="font-mono text-xs text-primary">STAGE 0{i + 1}</span>
+                <span className="font-mono text-xs text-primary">STEP 0{i + 1}</span>
                 <h3 className="font-display font-semibold uppercase tracking-wide text-sm text-foreground">{s.t}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{s.d}</p>
               </li>
@@ -458,21 +458,21 @@ const Index = () => {
       </section>
 
       {/* 7. SECURE RESULTS TERMINAL */}
-      <section className="py-16 md:py-20">
+      <section className="bg-primary text-primary-foreground">
         <div className="container">
-          <div className="bg-primary text-primary-foreground grid lg:grid-cols-12 gap-8 p-8 md:p-12 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 py-14 md:py-20 items-center">
             <div className="lg:col-span-6 space-y-3">
-              <p className="font-mono text-xs tracking-[0.2em] opacity-80">[ 05 ] PATIENT PORTAL // 256-BIT SSL ENCRYPTION</p>
-              <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight">Retrieve your verified report.</h2>
-              <p className="text-sm opacity-80">Enter the reference code printed on your lab receipt. <span className="font-mono">FORMAT: GMD-XXXXX</span></p>
+              <p className="font-mono text-xs tracking-[0.2em] opacity-80">[ 05 ] YOUR RESULTS · SAFE & PRIVATE</p>
+              <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight">Get your test results online.</h2>
+              <p className="text-sm opacity-80">Type the code printed on your receipt. It looks like <span className="font-mono">GMD-12345</span>.</p>
             </div>
             <form
               onSubmit={(e) => { e.preventDefault(); window.location.href = "/results"; }}
               className="lg:col-span-6 flex flex-col sm:flex-row border border-primary-foreground/40"
             >
-              <label htmlFor="ref" className="sr-only">Reference ID</label>
+              <label htmlFor="ref" className="sr-only">Receipt code</label>
               <input id="ref" placeholder="GMD-00000" className="flex-1 min-w-0 bg-transparent px-4 py-4 font-mono text-primary-foreground placeholder:text-primary-foreground/50 outline-none" />
-              <button type="submit" className="bg-primary-foreground text-primary px-6 py-4 font-semibold text-sm hover:opacity-90 transition-opacity">Access Encrypted Report</button>
+              <button type="submit" className="bg-primary-foreground text-primary px-6 py-4 font-semibold text-sm hover:opacity-90 transition-opacity">View my results</button>
             </form>
           </div>
         </div>
@@ -483,15 +483,15 @@ const Index = () => {
         <div className="container grid lg:grid-cols-12 gap-12">
           <div className="lg:col-span-5 space-y-8">
             <div className="space-y-4">
-              <p className="font-mono text-xs tracking-[0.2em] text-primary">[ 06 ] STATION: ELIOPARANWO MAIN LABORATORY</p>
-              <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">Facility schedule.</h2>
+              <p className="font-mono text-xs tracking-[0.2em] text-primary">[ 06 ] VISIT US</p>
+              <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">Opening hours.</h2>
             </div>
             <dl className="border-t border-border text-sm">
               {[
-                ["Walk-in Specimen Intake", "Mon – Sat, 07:30 – 18:00"],
-                ["Home Sample Dispatches", "Mon – Sat, 07:00 – 16:00"],
-                ["Consultant Pathology Reviews", "Mon – Fri, 09:00 – 17:00"],
-                ["Emergency / STAT Turnaround", "On-call 24/7"],
+                ["Walk-in tests", "Mon – Sat, 07:30 – 18:00"],
+                ["Home visits", "Mon – Sat, 07:00 – 16:00"],
+                ["Speak with a lab doctor", "Mon – Fri, 09:00 – 17:00"],
+                ["Urgent tests", "On-call 24/7"],
               ].map(([k, v]) => (
                 <div key={k} className="flex justify-between gap-4 py-4 border-b border-border">
                   <dt className="text-foreground font-medium">{k}</dt>
